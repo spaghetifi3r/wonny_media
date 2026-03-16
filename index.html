@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wonny Media — Unlimited Media Pass</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0D0D0D;
+  --white:#FAFAF8;
+  --gray:#F2F1EE;
+  --gray2:#E5E3DE;
+  --muted:#888580;
+  --accent:#1A1A1A;
+  --gold:#B5936B;
+}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);min-height:100vh}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 3rem;border-bottom:1px solid var(--gray2)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;letter-spacing:0.02em}
+.nav-logo span{color:var(--gold)}
+.nav-cta{background:var(--black);color:var(--white);border:none;padding:0.6rem 1.4rem;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s}
+.nav-cta:hover{opacity:0.75}
+
+/* HERO */
+.hero{padding:5rem 3rem 4rem;max-width:900px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6vw,4.2rem);font-weight:400;line-height:1.1;letter-spacing:-0.01em;margin-bottom:1.5rem}
+.hero-title em{font-style:italic;color:var(--muted)}
+.hero-sub{font-size:1rem;font-weight:300;color:#555;line-height:1.7;max-width:540px;margin:0 auto 2.5rem}
+.hero-btn{background:var(--black);color:var(--white);border:none;padding:1rem 2.5rem;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.hero-btn:hover{background:var(--gold)}
+
+/* STRIP */
+.strip{background:var(--black);color:var(--white);padding:1.1rem 3rem;display:flex;align-items:center;justify-content:center;gap:3rem;overflow:hidden}
+.strip-item{font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap}
+.strip-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* WHAT YOU GET */
+.section{padding:5rem 3rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:0.68rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3rem;padding-bottom:0.75rem;border-bottom:1px solid var(--gray2)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray2)}
+.card{background:var(--white);padding:2rem 1.75rem}
+.card-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:400;color:var(--gray2);line-height:1;margin-bottom:1rem}
+.card-title{font-size:0.9rem;font-weight:500;letter-spacing:0.04em;margin-bottom:0.5rem}
+.card-body{font-size:0.82rem;font-weight:300;color:#666;line-height:1.65}
+
+/* WORK SECTION */
+.work-section{padding:5rem 3rem;border-top:1px solid var(--gray2)}
+.work-inner{max-width:1100px;margin:0 auto}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:var(--black)}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.video-label{font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.75rem}
+.ig-banner{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--gray2);padding:1.5rem 2rem;margin-top:0.5rem;text-decoration:none;color:var(--black);transition:border-color 0.2s}
+.ig-banner:hover{border-color:var(--black)}
+.ig-left{display:flex;align-items:center;gap:1rem}
+.ig-icon{width:40px;height:40px;border-radius:10px;background:var(--black);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ig-icon svg{width:20px;height:20px;fill:var(--white)}
+.ig-text-label{font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem}
+.ig-handle{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400}
+.ig-arrow{font-size:1.2rem;color:var(--muted)}
+@media(max-width:600px){
+  .work-section{padding:3.5rem 1.5rem}
+  .video-grid{grid-template-columns:1fr}
+  .ig-banner{padding:1.25rem 1.5rem}
+}
+
+/* FORM SECTION */
+.form-section{background:var(--gray);padding:5rem 3rem}
+.form-inner{max-width:680px;margin:0 auto}
+.form-header{margin-bottom:3rem}
+.form-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;line-height:1.2;margin-bottom:0.75rem}
+.form-header p{font-size:0.88rem;font-weight:300;color:#666;line-height:1.65}
+
+/* STEPS */
+.step{display:none}
+.step.active{display:block}
+.step-indicator{display:flex;align-items:center;gap:0.5rem;margin-bottom:2.5rem}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--gray2);transition:background 0.3s}
+.step-dot.done{background:var(--gold)}
+.step-dot.current{background:var(--black)}
+
+.q-label{font-size:0.7rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
+.q-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:1.75rem;line-height:1.35}
+
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.opt{padding:1rem 1.25rem;border:1px solid var(--gray2);background:var(--white);cursor:pointer;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:400;color:var(--black);text-align:left;transition:all 0.15s;line-height:1.4}
+.opt:hover{border-color:var(--black)}
+.opt.selected{border-color:var(--black);background:var(--black);color:var(--white)}
+.opt-sub{font-size:0.72rem;color:var(--muted);margin-top:0.25rem;display:block}
+.opt.selected .opt-sub{color:var(--gray2)}
+
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+
+.form-nav{display:flex;align-items:center;justify-content:space-between;margin-top:2rem}
+.btn-next{background:var(--black);color:var(--white);border:none;padding:0.85rem 2.2rem;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.btn-next:hover{background:var(--gold)}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed}
+.btn-back{background:none;border:none;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:400;color:var(--muted);cursor:pointer;letter-spacing:0.04em}
+.btn-back:hover{color:var(--black)}
+
+/* CONTACT FORM */
+.field-group{margin-bottom:1.25rem}
+.field-label{display:block;font-size:0.7rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.field-input{width:100%;padding:0.85rem 1rem;border:1px solid var(--gray2);background:var(--white);font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:300;color:var(--black);outline:none;transition:border-color 0.15s}
+.field-input:focus{border-color:var(--black)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* SUCCESS */
+.success-state{text-align:center;padding:2rem 0}
+.success-icon{width:56px;height:56px;border:1px solid var(--black);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.3rem}
+.success-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:0.75rem}
+.success-sub{font-size:0.88rem;font-weight:300;color:#666;line-height:1.65}
+
+/* PAYMENT */
+.payment-section{padding:3.5rem 3rem;border-top:1px solid var(--gray2)}
+.payment-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.payment-label{font-size:0.68rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.payment-methods{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.pay-pill{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;border:1px solid var(--gray2);font-size:0.8rem;font-weight:400;color:var(--black);letter-spacing:0.02em}
+.pay-pill svg{width:16px;height:16px;flex-shrink:0}
+@media(max-width:600px){
+  .payment-section{padding:2.5rem 1.5rem}
+  .payment-inner{flex-direction:column;align-items:flex-start;gap:1.25rem}
+}
+
+/* FOOTER */
+footer{border-top:1px solid var(--gray2);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1rem}
+.footer-logo span{color:var(--gold)}
+.footer-copy{font-size:0.75rem;color:var(--muted)}
+
+@media(max-width:600px){
+  nav{padding:1.2rem 1.5rem}
+  .hero{padding:3.5rem 1.5rem 3rem}
+  .section{padding:3.5rem 1.5rem}
+  .strip{gap:1.5rem;padding:1rem 1.5rem;flex-wrap:wrap}
+  .cards{grid-template-columns:1fr}
+  .form-section{padding:3.5rem 1.5rem}
+  .option-grid,.budget-grid,.field-row{grid-template-columns:1fr}
+  footer{padding:1.5rem;flex-direction:column;gap:0.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">wonny<span>.</span>media</div>
+  <button class="nav-cta" onclick="scrollToForm()">Get Started</button>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Unlimited Media Pass</p>
+  <h1 class="hero-title">Your life, captured<br><em>without limits.</em></h1>
+  <p class="hero-sub">One pass. Unlimited video &amp; photo coverage — any time, any place, any occasion. Your personal videographer and photographer, always on call.</p>
+  <button class="hero-btn" onclick="scrollToForm()">Check Your Fit &rarr;</button>
+</section>
+
+<div class="strip">
+  <span class="strip-item">24 / 7 Access</span>
+  <span class="strip-dot"></span>
+  <span class="strip-item">Unlimited Shoots</span>
+  <span class="strip-dot"></span>
+  <span class="strip-item">Photo &amp; Video</span>
+  <span class="strip-dot"></span>
+  <span class="strip-item">Any Location</span>
+  <span class="strip-dot"></span>
+  <span class="strip-item">Same-Week Delivery</span>
+</div>
+
+<div class="section">
+  <div class="section-label">What's included</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">Unlimited Coverage</div>
+      <div class="card-body">No cap on shoots, hours, or locations. Call whenever the moment matters — I show up.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">Photo &amp; Video</div>
+      <div class="card-body">Full-service stills and motion. From candid moments to polished content — all in one pass.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">Fast Turnaround</div>
+      <div class="card-body">Edited and delivered within days, not weeks. Ready to share when the moment is still fresh.</div>
+    </div>
+  </div>
+</div>
+
+<section class="work-section">
+  <div class="work-inner">
+    <div class="section-label">Works</div>
+
+    <div class="video-grid">
+      <div>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/4nDPn0iGX3U?si=xeOw7Xr0Tjt0KZzZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="video-label">Footsweeps For Beginners 4K — JFLOW</p>
+      </div>
+      <div>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/GDlfavybQRo?si=vNa04z1TZJ-vjAKG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="video-label">Featured Production — Wonny Media</p>
+      </div>
+    </div>
+
+    <a class="ig-banner" href="https://www.instagram.com/being.wonny/" target="_blank" rel="noopener">
+      <div class="ig-left">
+        <div class="ig-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="ig-text-label">Follow the work</p>
+          <p class="ig-handle">@being.wonny</p>
+        </div>
+      </div>
+      <span class="ig-arrow">→</span>
+    </a>
+
+  </div>
+</section>
+
+<section class="form-section" id="form-section">
+  <div class="form-inner">
+    <div class="form-header">
+      <h2>Let's see if we're a fit.</h2>
+      <p>Answer a few quick questions and I'll reach out to book your free consult call.</p>
+    </div>
+
+    <div class="step-indicator" id="dots"></div>
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step-1">
+      <p class="q-label">Step 1 of 4</p>
+      <p class="q-title">What are you looking to get captured?</p>
+      <div class="option-grid">
+        <button class="opt" onclick="select(this,'capture','Life & Personal Moments')">
+          Life &amp; Personal Moments
+          <span class="opt-sub">Trips, milestones, everyday life</span>
+        </button>
+        <button class="opt" onclick="select(this,'capture','Business & Brand Content')">
+          Business &amp; Brand Content
+          <span class="opt-sub">Reels, promos, behind-the-scenes</span>
+        </button>
+        <button class="opt" onclick="select(this,'capture','Events & Occasions')">
+          Events &amp; Occasions
+          <span class="opt-sub">Parties, ceremonies, gatherings</span>
+        </button>
+        <button class="opt" onclick="select(this,'capture','All of the above')">
+          All of the above
+          <span class="opt-sub">I need full coverage across life</span>
+        </button>
+      </div>
+      <div class="form-nav">
+        <span></span>
+        <button class="btn-next" id="next-1" disabled onclick="goTo(2)">Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step-2">
+      <p class="q-label">Step 2 of 4</p>
+      <p class="q-title">How often do you envision needing coverage?</p>
+      <div class="option-grid">
+        <button class="opt" onclick="select(this,'frequency','A few times a month')">
+          A few times a month
+          <span class="opt-sub">Occasional, planned shoots</span>
+        </button>
+        <button class="opt" onclick="select(this,'frequency','Weekly')">
+          Weekly
+          <span class="opt-sub">Regular content cadence</span>
+        </button>
+        <button class="opt" onclick="select(this,'frequency','Multiple times a week')">
+          Multiple times a week
+          <span class="opt-sub">High volume, always moving</span>
+        </button>
+        <button class="opt" onclick="select(this,'frequency','On-demand / spontaneous')">
+          On-demand / spontaneous
+          <span class="opt-sub">Whenever the moment strikes</span>
+        </button>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goTo(1)">&larr; Back</button>
+        <button class="btn-next" id="next-2" disabled onclick="goTo(3)">Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step-3">
+      <p class="q-label">Step 3 of 4</p>
+      <p class="q-title">What's your daily budget for media coverage?</p>
+      <div class="budget-grid">
+        <button class="opt" onclick="select(this,'budget','Under $500 / day')">Under $500 / day</button>
+        <button class="opt" onclick="select(this,'budget','$500 – $1,000 / day')">$500 &ndash; $1,000 / day</button>
+        <button class="opt" onclick="select(this,'budget','$1,000 – $2,500 / day')">$1,000 &ndash; $2,500 / day</button>
+        <button class="opt" onclick="select(this,'budget','$2,500+ / day')">$2,500+ / day</button>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goTo(2)">&larr; Back</button>
+        <button class="btn-next" id="next-3" disabled onclick="goTo(4)">Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: CONTACT -->
+    <div class="step" id="step-4">
+      <p class="q-label">Step 4 of 4</p>
+      <p class="q-title">Almost there — where should I reach you?</p>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">First Name</label>
+          <input class="field-input" type="text" id="fname" placeholder="Jordan" oninput="checkContact()">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Last Name</label>
+          <input class="field-input" type="text" id="lname" placeholder="Williams" oninput="checkContact()">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Email</label>
+        <input class="field-input" type="email" id="email" placeholder="you@example.com" oninput="checkContact()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Phone (optional)</label>
+        <input class="field-input" type="tel" id="phone" placeholder="+1 (555) 000-0000">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Anything else to know?</label>
+        <textarea class="field-input" id="notes" rows="3" placeholder="Tell me more about what you have in mind..."></textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goTo(3)">&larr; Back</button>
+        <button class="btn-next" id="next-4" disabled onclick="submit()">Book My Consult Call &rarr;</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="step" id="step-success">
+      <div class="success-state">
+        <div class="success-icon">&#10003;</div>
+        <h3 class="success-title">You're on the list.</h3>
+        <p class="success-sub">Thanks for reaching out. I'll review your answers and be in touch within 24 hours to schedule your free consult call.<br><br>&mdash; Wonny</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="payment-section">
+  <div class="payment-inner">
+    <span class="payment-label">Accepted payments</span>
+    <div class="payment-methods">
+
+      <div class="pay-pill">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="5" width="20" height="14" rx="2" stroke="#0D0D0D" stroke-width="1.5"/>
+          <path d="M2 10h20" stroke="#0D0D0D" stroke-width="1.5"/>
+          <path d="M6 15h4" stroke="#0D0D0D" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Wire Transfer
+      </div>
+
+      <div class="pay-pill">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#003087">
+          <path d="M7.076 21.337H4.825a.641.641 0 0 1-.633-.74L6.34 2.95a.78.78 0 0 1 .77-.646h4.827c2.573 0 4.35 1.04 4.696 3.274.336 2.173-.95 4.256-3.376 4.972l-.03.008c1.07.37 1.79 1.3 1.79 2.596 0 2.86-2.334 4.64-5.818 4.64H7.44l-.364 3.543zm1.405-5.87-.36 3.52h1.32c1.91 0 3.07-.9 3.07-2.35 0-1.07-.73-1.65-2.06-1.65H8.48l-.001.48zm.62-5.44-.33 3.22h1.14c1.79 0 2.88-.82 2.88-2.14 0-.97-.67-1.51-1.91-1.51H9.44l-.34.43z"/>
+        </svg>
+        PayPal
+      </div>
+
+      <div class="pay-pill">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9.5" stroke="#0D0D0D" stroke-width="1.5"/>
+          <path d="M12 6v1.5M12 16.5V18M9 9.5c0-1.105.895-2 2-2h2a2 2 0 0 1 0 4h-2a2 2 0 0 0 0 4h2a2 2 0 0 0 2-2" stroke="#0D0D0D" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Crypto
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">wonny<span>.</span>media</div>
+  <div class="footer-copy">&copy; 2026 Wonny Media. All rights reserved.</div>
+</footer>
+
+<script>
+const answers = {capture:null, frequency:null, budget:null};
+const totalSteps = 4;
+
+function renderDots(current){
+  const c = document.getElementById('dots');
+  c.innerHTML = '';
+  for(let i=1;i<=totalSteps;i++){
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i < current ? ' done' : i === current ? ' current' : '');
+    c.appendChild(d);
+  }
+}
+
+function select(el, key, val){
+  answers[key] = val;
+  const grid = el.closest('.option-grid, .budget-grid');
+  grid.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const stepNum = el.closest('.step').id.replace('step-','');
+  const nb = document.getElementById('next-' + stepNum);
+  if(nb) nb.disabled = false;
+}
+
+function goTo(n){
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('step-' + (n === 'success' ? 'success' : n));
+  if(target) target.classList.add('active');
+  if(n !== 'success') renderDots(n);
+  else document.getElementById('dots').innerHTML = '';
+}
+
+function checkContact(){
+  const ok = document.getElementById('fname').value.trim() &&
+             document.getElementById('lname').value.trim() &&
+             document.getElementById('email').value.includes('@');
+  document.getElementById('next-4').disabled = !ok;
+}
+
+function submit(){
+  goTo('success');
+}
+
+function scrollToForm(){
+  document.getElementById('form-section').scrollIntoView({behavior:'smooth'});
+}
+
+renderDots(1);
+</script>
+</body>
+</html>
