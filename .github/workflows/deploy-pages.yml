@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
   pages: write
+  id-token: write
 
 jobs:
   deploy:
@@ -18,30 +19,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Enable GitHub Pages (branch source)
+      - name: Enable GitHub Pages via gh CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Enable Pages serving from gh-pages branch
-          response=$(curl -s -w "\n%{http_code}" \
-            -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          set +e
+          # Try to enable Pages with workflow source
+          result=$(gh api \
+            --method POST \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/${{ github.repository }}/pages \
-            -d '{"build_type":"legacy","source":{"branch":"gh-pages","path":"/"}}')
-          http_code=$(echo "$response" | tail -1)
-          body=$(echo "$response" | head -1)
-          echo "Response code: $http_code"
-          echo "Response body: $body"
-          if [ "$http_code" = "409" ]; then
-            echo "Pages already configured, updating source..."
-            curl -s \
-              -X PUT \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            /repos/${{ github.repository }}/pages \
+            -f build_type=legacy \
+            -f 'source[branch]=gh-pages' \
+            -f 'source[path]=/' \
+            2>&1)
+          exit_code=$?
+          echo "Exit code: $exit_code"
+          echo "Result: $result"
+
+          if echo "$result" | grep -q "already_enabled\|already exists\|409"; then
+            echo "Pages already enabled, updating source..."
+            gh api \
+              --method PUT \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
-              https://api.github.com/repos/${{ github.repository }}/pages \
-              -d '{"build_type":"legacy","source":{"branch":"gh-pages","path":"/"}}'
+              /repos/${{ github.repository }}/pages \
+              -f build_type=legacy \
+              -f 'source[branch]=gh-pages' \
+              -f 'source[path]=/' || true
           fi
+          echo "Pages configuration complete"
 
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@v4
@@ -49,5 +57,3 @@ jobs:
           folder: .
           branch: gh-pages
           clean: true
-          clean-exclude: |
-            .nojekyll
